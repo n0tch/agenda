@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:name=".presentation.AgendaApplication"
+        android:name=".AgendaApplication"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:targetApi="31" >
 
-        <activity android:name=".presentation.AgendaActivity" android:exported="true">
+        <activity android:name=".AgendaActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

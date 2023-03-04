@@ -1,4 +1,4 @@
-package com.gustavo.agenda.presentation.event.presentation
+package com.gustavo.agenda.event.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.gustavo.agenda.R
 import com.gustavo.agenda.databinding.AgendaEventFragmentBinding
-import com.gustavo.agenda.presentation.date.AgendaFragment.Companion.SELECTED_DATE_KEY
+import com.gustavo.agenda.date.AgendaFragment.Companion.SELECTED_DATE_KEY
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EventFragment: Fragment(R.layout.agenda_event_fragment) {

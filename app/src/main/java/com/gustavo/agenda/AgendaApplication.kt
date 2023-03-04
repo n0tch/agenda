@@ -1,8 +1,8 @@
-package com.gustavo.agenda.presentation
+package com.gustavo.agenda
 
 import android.app.Application
-import com.gustavo.agenda.presentation.di.agendaModule
-import com.gustavo.agenda.presentation.di.eventModule
+import com.gustavo.agenda.di.agendaModule
+import com.gustavo.agenda.di.eventModule
 import org.koin.core.context.startKoin
 import org.koin.android.ext.koin.androidContext
 

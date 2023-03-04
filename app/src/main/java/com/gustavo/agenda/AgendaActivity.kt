@@ -1,4 +1,4 @@
-package com.gustavo.agenda.presentation
+package com.gustavo.agenda
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

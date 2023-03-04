@@ -1,4 +1,4 @@
-package com.gustavo.agenda.presentation.date
+package com.gustavo.agenda.date
 
 import androidx.lifecycle.ViewModel
 

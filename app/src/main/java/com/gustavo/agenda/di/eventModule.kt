@@ -1,6 +1,6 @@
-package com.gustavo.agenda.presentation.di
+package com.gustavo.agenda.di
 
-import com.gustavo.agenda.presentation.event.presentation.EventViewModel
+import com.gustavo.agenda.event.presentation.EventViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
