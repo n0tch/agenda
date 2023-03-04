@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/agendaFragment">
+
+    <fragment
+        android:id="@+id/agendaFragment"
+        android:name="com.gustavo.agenda.presentation.agenda.AgendaFragment"
+        android:label="AgendaFragment"
+        >
+        <action
+            android:id="@+id/action_agendaFragment_to_eventFragment"
+            app:destination="@id/eventFragment"
+            />
+        <argument android:name="selected_date" app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.gustavo.agenda.presentation.event.presentation.EventFragment"
+        android:label="EventFragment" />
+</navigation>
