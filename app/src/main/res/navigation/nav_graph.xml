@@ -6,8 +6,8 @@
 
     <fragment
         android:id="@+id/agendaFragment"
-        android:name="com.gustavo.agenda.date.AgendaFragment"
-        android:label="AgendaFragment"
+        android:name="com.gustavo.agenda.eventDate.EventDateFragment"
+        android:label="Agenda"
         >
         <action
             android:id="@+id/action_agendaFragment_to_eventFragment"
@@ -17,6 +17,6 @@
     </fragment>
     <fragment
         android:id="@+id/eventFragment"
-        android:name="com.gustavo.agenda.event.presentation.EventFragment"
-        android:label="EventFragment" />
+        android:name="com.gustavo.agenda.eventDetail.presentation.EventDetailFragment"
+        android:label="Cadastro de Evento" />
 </navigation>

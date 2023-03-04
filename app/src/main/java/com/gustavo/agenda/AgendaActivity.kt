@@ -2,20 +2,20 @@ package com.gustavo.agenda
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
-import com.gustavo.agenda.R
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.gustavo.agenda.databinding.AgendaActivityBinding
 
-class AgendaActivity: AppCompatActivity() {
+class AgendaActivity : AppCompatActivity() {
 
-    lateinit var binding: AgendaActivityBinding
+    private lateinit var binding: AgendaActivityBinding
 
     private val navHostFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.agendaFragmentContainer) as NavHostFragment
     }
 
-    private val navigation by lazy {
+    private val navController by lazy {
         navHostFragment.navController
     }
 
@@ -23,16 +23,14 @@ class AgendaActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = AgendaActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         setupToolbar()
     }
 
     private fun setupToolbar() {
         setSupportActionBar(binding.topAppBar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        binding.topAppBar.setNavigationOnClickListener {
-            navigation.navigateUp()
-        }
+        val config = AppBarConfiguration(navController.graph)
+        binding.topAppBar.setupWithNavController(navController, config)
     }
 }
