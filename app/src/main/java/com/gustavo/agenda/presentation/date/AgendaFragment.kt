@@ -1,4 +1,4 @@
-package com.gustavo.agenda.presentation.agenda
+package com.gustavo.agenda.presentation.date
 
 import android.app.AlertDialog
 import android.os.Bundle

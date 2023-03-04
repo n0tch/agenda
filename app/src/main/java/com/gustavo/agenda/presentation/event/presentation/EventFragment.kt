@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.gustavo.agenda.R
 import com.gustavo.agenda.databinding.AgendaEventFragmentBinding
-import com.gustavo.agenda.presentation.agenda.AgendaFragment.Companion.SELECTED_DATE_KEY
+import com.gustavo.agenda.presentation.date.AgendaFragment.Companion.SELECTED_DATE_KEY
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.time.LocalDate
 
 class EventFragment: Fragment(R.layout.agenda_event_fragment) {
 
