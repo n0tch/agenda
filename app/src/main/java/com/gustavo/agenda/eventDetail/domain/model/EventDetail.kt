@@ -1,4 +1,4 @@
-package com.gustavo.agenda.eventDetail.model
+package com.gustavo.agenda.eventDetail.domain.model
 
 data class EventDetail(
     val name: String,
