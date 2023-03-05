@@ -40,6 +40,7 @@ dependencies {
     def nav_version = "2.5.3"
     def koin_version = "3.3.3"
     def fragment_version = "1.5.5"
+    def coroutine_version = "1.6.1"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -58,4 +59,8 @@ dependencies {
 
     //fragments
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
 }
