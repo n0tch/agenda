@@ -17,6 +17,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
+
     viewBinding {
         enabled = true
     }
@@ -37,10 +43,13 @@ android {
 }
 
 dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter'
     def nav_version = "2.5.3"
     def koin_version = "3.3.3"
     def fragment_version = "1.5.5"
     def coroutine_version = "1.6.1"
+    def gson_version = "2.8.6"
+    def mockk_version = "1.13.4"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -63,4 +72,13 @@ dependencies {
     //coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+
+    //gson
+    implementation "com.google.code.gson:gson:$gson_version"
+
+    //mockk
+    testImplementation "io.mockk:mockk:$mockk_version"
+
+    //junit jupyter
+    testImplementation "org.junit.jupiter:junit-jupiter:5.9.1"
 }
