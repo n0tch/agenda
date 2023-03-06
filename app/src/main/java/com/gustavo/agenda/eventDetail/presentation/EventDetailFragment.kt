@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.gustavo.agenda.R
+import com.gustavo.agenda.common.AgendaEvent
+import com.gustavo.agenda.common.ui.defaultAlert
 import com.gustavo.agenda.databinding.EventDetailFragmentBinding
+import com.gustavo.agenda.eventDate.domain.model.EventDate
 import com.gustavo.agenda.eventDate.presentation.EventDateFragment.Companion.DATE_DAY_KEY
 import com.gustavo.agenda.eventDate.presentation.EventDateFragment.Companion.DATE_MONTH_KEY
 import com.gustavo.agenda.eventDate.presentation.EventDateFragment.Companion.DATE_YEAR_KEY
@@ -51,28 +54,57 @@ class EventDetailFragment : Fragment(R.layout.event_detail_fragment) {
 
     private fun setupClickListeners() {
         binding.saveButton.setOnClickListener {
-            viewModel.saveEventDetail(
+            viewModel.scheduleEvent(
                 binding.eventNameEditText.text.toString(),
                 binding.eventDescriptionEditText.text.toString(),
                 binding.eventTime.hour,
                 binding.eventTime.minute,
             )
-            navController.navigateUp()
         }
     }
 
     private fun handleEventDetailState(eventDetailState: EventDetailState) {
         when (eventDetailState) {
-            is EventDetailState.DateSelected -> {
-                with(eventDetailState) {
-                    setupEventDetailTitle(day, month, year)
-                }
-            }
+            is EventDetailState.DateSelected -> setupEventDetailTitle(eventDetailState.eventDate)
+            is EventDetailState.ErrorOnSave -> handleErrorToSchedule()
+            is EventDetailState.InvalidDateSelected -> handleInvalidDateSelected()
+            is EventDetailState.EventSaved -> handleEventCreated(eventDetailState.agendaEvent)
         }
     }
 
-    private fun setupEventDetailTitle(day: Int, month: Int, year: Int) {
+    private fun handleInvalidDateSelected() = requireContext()
+        .defaultAlert(
+            title = "Seleção de data invalida :(",
+            description = "Tente novamente",
+            positiveButtonText = getString(android.R.string.ok),
+            positiveButtonAction = {}
+        )
+
+    private fun handleErrorToSchedule() = requireContext()
+        .defaultAlert(
+            title = "Erro ao agendar evento :(",
+            description = "Tente novamente",
+            positiveButtonText = getString(android.R.string.ok),
+            positiveButtonAction = {}
+        )
+
+    private fun handleEventCreated(agendaEvent: AgendaEvent) = requireContext()
+        .defaultAlert(
+            title = "Deu certo!",
+            description = "Evento agendado para o dia ${agendaEvent.eventDate.day}/${agendaEvent.eventDate.month}/${agendaEvent.eventDate.year} as ${agendaEvent.eventTime.hour}:${agendaEvent.eventTime.minute}",
+            positiveButtonText = getString(android.R.string.ok),
+            positiveButtonAction = {
+                navController.navigateUp()
+            }
+        )
+
+    private fun setupEventDetailTitle(eventDate: EventDate) {
         binding.eventTitle.text =
-            getString(R.string.event_detail_title_text, day, month, year)
+            getString(
+                R.string.event_detail_title_text,
+                eventDate.day,
+                eventDate.month,
+                eventDate.year
+            )
     }
 }
