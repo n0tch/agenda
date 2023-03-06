@@ -1,22 +1,24 @@
 package com.gustavo.agenda.eventDate.presentation
 
-import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gustavo.agenda.R
+import com.gustavo.agenda.common.AgendaEvent
+import com.gustavo.agenda.common.ui.defaultAlert
 import com.gustavo.agenda.databinding.EventDateFragmentBinding
+import com.gustavo.agenda.eventDate.presentation.adapter.AgendaEventAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
-class EventDateFragment: Fragment(R.layout.event_date_fragment) {
+class EventDateFragment : Fragment(R.layout.event_date_fragment) {
 
     private lateinit var binding: EventDateFragmentBinding
     private val viewModel by viewModel<EventDateViewModel>()
+    private val agendaEventAdapter by lazy { AgendaEventAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,28 +31,90 @@ class EventDateFragment: Fragment(R.layout.event_date_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupObservables()
         setupClickListeners()
+        setupDatePicker()
+        setupRecyclerView()
+
+        viewModel.getEvents(
+            binding.datePickerView.year,
+            binding.datePickerView.month,
+            binding.datePickerView.dayOfMonth
+        )
+    }
+
+    private fun setupRecyclerView() {
+        binding.agendaEventsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.agendaEventsRecyclerView.adapter = agendaEventAdapter
+    }
+
+    private fun setupDatePicker() {
+        viewModel.updateSelectedDate(
+            binding.datePickerView.year,
+            binding.datePickerView.month,
+            binding.datePickerView.dayOfMonth,
+        )
+    }
+
+    private fun setupObservables() {
+        viewModel.getEventDateState().observe(viewLifecycleOwner) {
+            handleEventDateState(it)
+        }
+    }
+
+    private fun handleEventDateState(eventState: EventDateState) = when (eventState) {
+        is EventDateState.DateSelected -> updateTitle(
+            eventState.year,
+            eventState.month,
+            eventState.day
+        )
+        is EventDateState.AgendaEvents -> {
+            handleAgendaEvents(eventState.agendaEvents)
+        }
+        is EventDateState.ErrorLoadingAgendaEvents -> {}
+    }
+
+    private fun handleAgendaEvents(agendaEvents: List<AgendaEvent>) {
+        agendaEventAdapter.update(agendaEvents)
+    }
+
+    private fun updateTitle(year: Int, month: Int, day: Int) {
+        binding.eventListTextView.text = "$day/$month/$year"
     }
 
     private fun setupClickListeners() {
-        binding.addEventButton.setOnClickListener {
-            AlertDialog.Builder(context)
-                .setCancelable(true)
-                .setMessage("Adicionar notificação para o dia ${viewModel.selectedDate}?")
-                .setPositiveButton("Avançar") { dialog, id ->
-                    val bundle = Bundle().apply {
-                        putInt(DATE_DAY_KEY, binding.datePickerView.dayOfMonth)
-                        putInt(DATE_MONTH_KEY, binding.datePickerView.month)
-                        putInt(DATE_YEAR_KEY, binding.datePickerView.year)
-                    }
-                    findNavController().navigate(R.id.action_agendaFragment_to_eventFragment, bundle)
-                }
-                .setNegativeButton("Cancelar") {dialog, id ->
-
-                }
-                .create()
-                .show()
+        val date = viewModel.getCurrentDate()
+        binding.datePickerView.init(date.year, date.month, date.day) { _, year, month, day ->
+            viewModel.updateSelectedDate(year, month, day)
+            viewModel.getEvents(year, month, day)
         }
+
+        binding.addEventButton.setOnClickListener {
+            requireContext().defaultAlert(
+                title = "Adicionar evento",
+                description = "Adicionar notificação para o dia ${binding.datePickerView.dayOfMonth}/${binding.datePickerView.month}/${binding.datePickerView.year}?",
+                positiveButtonText = "Avançar",
+                positiveButtonAction = {
+                    navigateToEventFragment()
+                },
+                negativeButtonText = "Cancelar",
+                negativeButtonAction = {}
+            )
+
+        }
+    }
+
+    private fun createDateBundle() = Bundle().apply {
+        putInt(DATE_DAY_KEY, binding.datePickerView.dayOfMonth)
+        putInt(DATE_MONTH_KEY, binding.datePickerView.month)
+        putInt(DATE_YEAR_KEY, binding.datePickerView.year)
+    }
+
+    private fun navigateToEventFragment() {
+        findNavController().navigate(
+            R.id.action_agendaFragment_to_eventFragment,
+            createDateBundle()
+        )
     }
 
     companion object {
