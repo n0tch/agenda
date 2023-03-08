@@ -1,10 +1,10 @@
-package com.gustavo.agenda.eventDetail.domain
+package com.gustavo.agenda.data.transformation
 
-import com.gustavo.agenda.common.AgendaEvent
-import com.gustavo.agenda.eventDate.domain.model.EventDate
-import com.gustavo.agenda.eventDate.domain.model.EventTime
-import com.gustavo.agenda.eventDetail.domain.exception.InvalidEventDateException
-import com.gustavo.agenda.eventDetail.domain.model.EventDetail
+import com.gustavo.agenda.domain.model.AgendaEvent
+import com.gustavo.agenda.domain.model.EventDate
+import com.gustavo.agenda.domain.model.EventTime
+import com.gustavo.agenda.data.exception.InvalidEventDateException
+import com.gustavo.agenda.domain.model.EventDetail
 
 class AgendaEventMapper {
     fun mapToAgendaEventDomain(
@@ -21,7 +21,7 @@ class AgendaEventMapper {
         }
     }
 
-    fun mapToEventTimeDomain(hour: Int, minute: Int, second: Int) = EventTime(hour, minute, second)
+    fun mapToEventTimeDomain(hour: Int, minute: Int, second: Int = 0) = EventTime(hour, minute, second)
 
     fun mapToEventDetailDomain(eventName: String, eventDescription: String): EventDetail =
         EventDetail(eventName, eventDescription)

@@ -1,4 +1,4 @@
-package com.gustavo.agenda.eventDate.presentation
+package com.gustavo.agenda.ui.eventdate.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gustavo.agenda.R
-import com.gustavo.agenda.common.AgendaEvent
+import com.gustavo.agenda.domain.model.AgendaEvent
 import com.gustavo.agenda.common.ui.defaultAlert
 import com.gustavo.agenda.databinding.EventDateFragmentBinding
-import com.gustavo.agenda.eventDate.presentation.adapter.AgendaEventAdapter
+import com.gustavo.agenda.ui.eventdate.adapter.AgendaEventAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EventDateFragment : Fragment(R.layout.event_date_fragment) {

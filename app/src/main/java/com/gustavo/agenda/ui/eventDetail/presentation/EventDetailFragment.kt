@@ -1,4 +1,4 @@
-package com.gustavo.agenda.eventDetail.presentation
+package com.gustavo.agenda.ui.eventDetail.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.gustavo.agenda.R
-import com.gustavo.agenda.common.AgendaEvent
+import com.gustavo.agenda.domain.model.AgendaEvent
 import com.gustavo.agenda.common.ui.defaultAlert
 import com.gustavo.agenda.databinding.EventDetailFragmentBinding
-import com.gustavo.agenda.eventDate.domain.model.EventDate
-import com.gustavo.agenda.eventDate.presentation.EventDateFragment.Companion.DATE_DAY_KEY
-import com.gustavo.agenda.eventDate.presentation.EventDateFragment.Companion.DATE_MONTH_KEY
-import com.gustavo.agenda.eventDate.presentation.EventDateFragment.Companion.DATE_YEAR_KEY
+import com.gustavo.agenda.domain.model.EventDate
+import com.gustavo.agenda.ui.eventdate.presentation.EventDateFragment.Companion.DATE_DAY_KEY
+import com.gustavo.agenda.ui.eventdate.presentation.EventDateFragment.Companion.DATE_MONTH_KEY
+import com.gustavo.agenda.ui.eventdate.presentation.EventDateFragment.Companion.DATE_YEAR_KEY
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EventDetailFragment : Fragment(R.layout.event_detail_fragment) {
@@ -45,10 +45,10 @@ class EventDetailFragment : Fragment(R.layout.event_detail_fragment) {
     }
 
     private fun retrieveArguments() {
-        viewModel.saveEventDate(
-            arguments?.getInt(DATE_DAY_KEY),
+        viewModel.updateSelectedDate(
+            arguments?.getInt(DATE_YEAR_KEY),
             arguments?.getInt(DATE_MONTH_KEY),
-            arguments?.getInt(DATE_YEAR_KEY)
+            arguments?.getInt(DATE_DAY_KEY)
         )
     }
 
@@ -66,10 +66,31 @@ class EventDetailFragment : Fragment(R.layout.event_detail_fragment) {
     private fun handleEventDetailState(eventDetailState: EventDetailState) {
         when (eventDetailState) {
             is EventDetailState.DateSelected -> setupEventDetailTitle(eventDetailState.eventDate)
-            is EventDetailState.ErrorOnSave -> handleErrorToSchedule()
+            is EventDetailState.ErrorOnSave -> showGenericError()
             is EventDetailState.InvalidDateSelected -> handleInvalidDateSelected()
             is EventDetailState.EventSaved -> handleEventCreated(eventDetailState.agendaEvent)
+            EventDetailState.EventScheduled -> handleEventScheduled()
+            is EventDetailState.ErrorOnScheduleEvent -> showGenericError()
         }
+    }
+
+    private fun showGenericError(){
+        requireContext()
+            .defaultAlert(
+                title = "Erro ao agendar evento :(",
+                description = "Tente novamente",
+                positiveButtonText = getString(android.R.string.ok),
+                positiveButtonAction = {}
+            )
+    }
+
+    private fun handleEventScheduled() {
+        viewModel.saveEvent(
+            binding.eventNameEditText.text.toString(),
+            binding.eventDescriptionEditText.text.toString(),
+            binding.eventTime.hour,
+            binding.eventTime.minute,
+        )
     }
 
     private fun handleInvalidDateSelected() = requireContext()

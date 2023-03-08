@@ -1,4 +1,4 @@
-package com.gustavo.agenda.eventDate.domain.model
+package com.gustavo.agenda.domain.model
 
 data class EventTime(
     val hour: Int,

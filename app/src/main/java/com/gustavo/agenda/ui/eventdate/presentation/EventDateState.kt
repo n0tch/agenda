@@ -1,6 +1,6 @@
-package com.gustavo.agenda.eventDate.presentation
+package com.gustavo.agenda.ui.eventdate.presentation
 
-import com.gustavo.agenda.common.AgendaEvent
+import com.gustavo.agenda.domain.model.AgendaEvent
 
 sealed class EventDateState {
     class DateSelected(val year: Int, val month: Int, val day: Int): EventDateState()

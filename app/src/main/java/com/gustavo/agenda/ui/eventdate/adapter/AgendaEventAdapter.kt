@@ -1,9 +1,9 @@
-package com.gustavo.agenda.eventDate.presentation.adapter
+package com.gustavo.agenda.ui.eventdate.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.gustavo.agenda.common.AgendaEvent
+import com.gustavo.agenda.domain.model.AgendaEvent
 import com.gustavo.agenda.databinding.AgendaEventItemBinding
 
 class AgendaEventAdapter: RecyclerView.Adapter<AgendaEventAdapter.AgendaEventViewHolder>() {

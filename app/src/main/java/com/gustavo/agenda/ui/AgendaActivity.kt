@@ -1,10 +1,11 @@
-package com.gustavo.agenda
+package com.gustavo.agenda.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.gustavo.agenda.R
 import com.gustavo.agenda.databinding.AgendaActivityBinding
 
 class AgendaActivity : AppCompatActivity() {

@@ -1,6 +1,6 @@
-package com.gustavo.agenda.common.mapper
+package com.gustavo.agenda.data.transformation
 
-import com.gustavo.agenda.common.AgendaEvent
+import com.gustavo.agenda.domain.model.AgendaEvent
 import java.util.Calendar
 
 fun AgendaEvent.getDateInMillis() : Long {

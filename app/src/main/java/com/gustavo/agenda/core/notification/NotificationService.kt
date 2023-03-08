@@ -1,4 +1,4 @@
-package com.gustavo.agenda.notification
+package com.gustavo.agenda.core.notification
 
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
@@ -8,7 +8,12 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.gustavo.agenda.R
 
-class Notification: BroadcastReceiver() {
+class NotificationService(
+//    private val context: Context
+): BroadcastReceiver() {
+//    private val intent = Intent(context, AlertDetails::class.java).apply {
+//        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//    }
     override fun onReceive(context: Context, intent: Intent) {
         val notification = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationCompat.Builder(context, CHANNEL_ID)
@@ -16,6 +21,8 @@ class Notification: BroadcastReceiver() {
                 .setContentTitle(intent.getStringExtra(TITLE_EXTRA))
                 .setContentText(intent.getStringExtra(MESSAGE_EXTRA))
                 .setChannelId(CHANNEL_ID)
+//                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .build()
         } else {
             NotificationCompat.Builder(context)
@@ -24,7 +31,6 @@ class Notification: BroadcastReceiver() {
                 .setContentText(intent.getStringExtra(MESSAGE_EXTRA))
                 .build()
         }
-
 
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(NOTIFICATION_ID, notification)
