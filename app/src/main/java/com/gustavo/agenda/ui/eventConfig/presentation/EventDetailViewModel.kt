@@ -1,4 +1,4 @@
-package com.gustavo.agenda.ui.eventDetail.presentation
+package com.gustavo.agenda.ui.eventConfig.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

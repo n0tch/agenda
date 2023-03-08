@@ -1,4 +1,4 @@
-package com.gustavo.agenda.ui.eventDetail.presentation
+package com.gustavo.agenda.ui.eventConfig.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,16 +9,16 @@ import androidx.navigation.Navigation
 import com.gustavo.agenda.R
 import com.gustavo.agenda.domain.model.AgendaEvent
 import com.gustavo.agenda.common.ui.defaultAlert
-import com.gustavo.agenda.databinding.EventDetailFragmentBinding
+import com.gustavo.agenda.databinding.EventConfigFragmentBinding
 import com.gustavo.agenda.domain.model.EventDate
 import com.gustavo.agenda.ui.eventdate.presentation.EventDateFragment.Companion.DATE_DAY_KEY
 import com.gustavo.agenda.ui.eventdate.presentation.EventDateFragment.Companion.DATE_MONTH_KEY
 import com.gustavo.agenda.ui.eventdate.presentation.EventDateFragment.Companion.DATE_YEAR_KEY
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class EventDetailFragment : Fragment(R.layout.event_detail_fragment) {
+class EventConfigFragment : Fragment(R.layout.event_config_fragment) {
 
-    private lateinit var binding: EventDetailFragmentBinding
+    private lateinit var binding: EventConfigFragmentBinding
     private val navController by lazy { Navigation.findNavController(binding.root) }
     private val viewModel by viewModel<EventDetailViewModel>()
 
@@ -27,7 +27,7 @@ class EventDetailFragment : Fragment(R.layout.event_detail_fragment) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = EventDetailFragmentBinding.inflate(layoutInflater)
+        binding = EventConfigFragmentBinding.inflate(layoutInflater)
         return binding.root
     }
 

@@ -1,6 +1,5 @@
-package com.gustavo.agenda.ui.eventDetail.presentation
+package com.gustavo.agenda.ui.eventConfig.presentation
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.gustavo.agenda.LiveDataTest
 import com.gustavo.agenda.common.mapper.Result
@@ -9,7 +8,6 @@ import com.gustavo.agenda.domain.usecase.event.EventUseCase
 import com.gustavo.agenda.domain.usecase.notification.ScheduleEventUseCase
 import com.gustavo.agenda.mocks.EventDateMock
 import io.mockk.*
-import org.junit.Rule
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 

@@ -10,15 +10,25 @@
         android:label="Agenda"
         >
         <action
-            android:id="@+id/action_agendaFragment_to_eventFragment"
-            app:destination="@id/eventFragment"
+            android:id="@+id/action_agendaFragment_to_eventConfigFragment"
+            app:destination="@id/eventConfigFragment"
             />
+        <action
+            android:id="@+id/action_agendaFragment_to_eventDetail"
+            app:destination="@id/eventDetailFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/eventConfigFragment"
+        android:name="com.gustavo.agenda.ui.eventConfig.presentation.EventConfigFragment"
+        android:label="Cadastro de Evento" >
         <argument android:name="date_day" app:argType="integer"/>
         <argument android:name="date_month" app:argType="integer"/>
         <argument android:name="date_year" app:argType="integer"/>
     </fragment>
+
     <fragment
-        android:id="@+id/eventFragment"
-        android:name="com.gustavo.agenda.ui.eventDetail.presentation.EventDetailFragment"
-        android:label="Cadastro de Evento" />
+        android:id="@+id/eventDetailFragment"
+        android:name="com.gustavo.agenda.ui.eventDetail.EventDetailFragment"
+        android:label="Detalhe" />
 </navigation>

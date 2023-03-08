@@ -24,7 +24,7 @@ class ScheduleEventUseCase(
 
         val agendaEvent = mapper.mapToAgendaEventDomain(eventDate, eventTime, eventDetail)
 
-        notificationRepository.scheduleEvent(agendaEvent)
+        val scheduled = notificationRepository.scheduleEvent(agendaEvent)
         Result.Success(agendaEvent)
     } catch (exception: Exception){
         Result.Error(exception)

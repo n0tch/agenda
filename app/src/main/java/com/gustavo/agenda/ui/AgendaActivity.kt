@@ -31,7 +31,11 @@ class AgendaActivity : AppCompatActivity() {
     private fun setupToolbar() {
         setSupportActionBar(binding.topAppBar)
 
-        val config = AppBarConfiguration(navController.graph)
-        binding.topAppBar.setupWithNavController(navController, config)
+        binding
+            .topAppBar
+            .setupWithNavController(
+                navController,
+                AppBarConfiguration(navController.graph)
+            )
     }
 }

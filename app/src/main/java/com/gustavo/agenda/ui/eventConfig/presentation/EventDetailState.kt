@@ -1,4 +1,4 @@
-package com.gustavo.agenda.ui.eventDetail.presentation
+package com.gustavo.agenda.ui.eventConfig.presentation
 
 import com.gustavo.agenda.domain.model.AgendaEvent
 import com.gustavo.agenda.domain.model.EventDate

@@ -3,10 +3,12 @@ package com.gustavo.agenda.ui.eventdate.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.gustavo.agenda.domain.model.AgendaEvent
 import com.gustavo.agenda.databinding.AgendaEventItemBinding
+import com.gustavo.agenda.domain.model.AgendaEvent
 
-class AgendaEventAdapter: RecyclerView.Adapter<AgendaEventAdapter.AgendaEventViewHolder>() {
+class AgendaEventAdapter(
+    val onClick: (AgendaEvent) -> Unit
+): RecyclerView.Adapter<AgendaEventAdapter.AgendaEventViewHolder>() {
 
     private val agendaEvents = mutableListOf<AgendaEvent>()
 
@@ -35,7 +37,11 @@ class AgendaEventAdapter: RecyclerView.Adapter<AgendaEventAdapter.AgendaEventVie
             binding.agendaEventTitle.text = agendaEvent.eventDetail.name
             binding.agendaEventDescription.text = agendaEvent.eventDetail.description
 
-            binding.agendaEventDateTitle.text = "${agendaEvent.eventDate.day}/${agendaEvent.eventDate.month}/${agendaEvent.eventDate.year} as ${agendaEvent.eventTime.hour}:${agendaEvent.eventTime.minute}"
+            binding.agendaEventDateTitle.text = agendaEvent.eventDate.toString() + " as " + agendaEvent.eventTime.toString()
+
+            binding.root.setOnClickListener {
+                onClick.invoke(agendaEvent)
+            }
         }
     }
 
