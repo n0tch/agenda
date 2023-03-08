@@ -3,9 +3,9 @@ package com.gustavo.agenda.common.repository
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.gustavo.agenda.common.AgendaEvent
-import com.gustavo.agenda.common.mapper.getDateInMillis
-import com.gustavo.agenda.eventDate.domain.model.EventDate
+import com.gustavo.agenda.domain.model.AgendaEvent
+import com.gustavo.agenda.data.transformation.getDateInMillis
+import com.gustavo.agenda.domain.model.EventDate
 
 class AgendaPreferences(
     private val context: Context,
@@ -15,10 +15,10 @@ class AgendaPreferences(
     private fun getPreferences() =
         context.getSharedPreferences(PREFERENCE_FILE_NAME, Context.MODE_PRIVATE)
 
-    fun saveEvent(agendaEvent: AgendaEvent) = with(getPreferences().edit()){
-        val savedEvents = getEventsByDay(agendaEvent.eventDate).toMutableList()
-
-        savedEvents.add(agendaEvent)
+    fun saveEvent(agendaEvent: AgendaEvent) = with(getPreferences().edit()) {
+        val savedEvents = getEventsByDay(agendaEvent.eventDate)
+            .toMutableList()
+            .apply { add(agendaEvent) }
 
         val agendaEventJson: String = gson.toJson(savedEvents)
         putString(getPreferenceKey(agendaEvent.eventDate), agendaEventJson)
@@ -28,13 +28,14 @@ class AgendaPreferences(
     fun getEventsByDay(eventDate: EventDate): List<AgendaEvent> = try {
         val storedAgendaEvent = getPreferences().getString(getPreferenceKey(eventDate), "")
 
-        val type = object: TypeToken<List<AgendaEvent>>(){}.type
-        gson.fromJson<List<AgendaEvent>?>(storedAgendaEvent, type).sortedByDescending { it.getDateInMillis() }
+        val type = object : TypeToken<List<AgendaEvent>>() {}.type
+        gson.fromJson<List<AgendaEvent>?>(storedAgendaEvent, type)
+            .sortedByDescending { it.getDateInMillis() }
     } catch (exception: Exception) {
         emptyList()
     }
 
-    private fun getPreferenceKey(eventDate: EventDate): String {
+    fun getPreferenceKey(eventDate: EventDate): String {
         return AGENDA_EVENT_KEY + listOf(
             eventDate.year,
             eventDate.month,

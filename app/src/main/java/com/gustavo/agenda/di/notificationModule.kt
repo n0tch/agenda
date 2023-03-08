@@ -2,8 +2,8 @@ package com.gustavo.agenda.di
 
 import android.app.AlarmManager
 import android.content.Context
-import com.gustavo.agenda.notification.AlarmScheduler
-import com.gustavo.agenda.notification.NotificationBuilder
+import com.gustavo.agenda.core.notification.AlarmScheduler
+import com.gustavo.agenda.core.notification.NotificationBuilder
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
