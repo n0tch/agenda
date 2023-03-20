@@ -1,6 +1,5 @@
 package com.gustavo.agenda.data.datasource
 
-import com.gustavo.agenda.common.repository.AgendaPreferences
 import com.gustavo.agenda.mocks.AgendaEventMock
 import io.mockk.*
 import org.junit.jupiter.api.Test

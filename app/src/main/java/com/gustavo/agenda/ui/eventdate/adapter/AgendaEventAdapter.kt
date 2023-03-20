@@ -26,7 +26,7 @@ class AgendaEventAdapter(
     fun update(agendaEvents: List<AgendaEvent>){
         this.agendaEvents.clear()
         this.agendaEvents.addAll(agendaEvents)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0 , this.agendaEvents.size)
     }
 
     inner class AgendaEventViewHolder(

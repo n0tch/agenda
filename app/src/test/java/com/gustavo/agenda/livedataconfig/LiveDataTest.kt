@@ -1,4 +1,4 @@
-package com.gustavo.agenda
+package com.gustavo.agenda.livedataconfig
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Rule

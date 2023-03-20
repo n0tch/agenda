@@ -16,8 +16,8 @@ class NotificationDataSource(
             .createNotificationPendingIntent(agendaEvent)
 
         return alarmScheduler.schedule(
-            agendaEvent.getDateInMillis(),
-            notificationPendingIntent
+            alarmAt = agendaEvent.getDateInMillis(),
+            pendingIntent = notificationPendingIntent
         )
     }
 }

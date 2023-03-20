@@ -14,14 +14,12 @@ import com.gustavo.agenda.R
 import com.gustavo.agenda.core.notification.ReminderNotification.Companion.NOTIFICATION_AGENDA_KEY
 import com.gustavo.agenda.data.transformation.getDateInMillis
 import com.gustavo.agenda.domain.model.AgendaEvent
-import com.gustavo.agenda.ui.AgendaActivity
-import com.gustavo.agenda.ui.eventdate.presentation.EventDateFragment
 import com.gustavo.agenda.ui.eventdate.presentation.EventDateFragment.Companion.AGENDA_EVENT_KEY
 
-class ReminderNotificationService: BroadcastReceiver() {
+class ReminderNotificationService : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        val agendaEvent = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        val agendaEvent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
             intent.getParcelableExtra(NOTIFICATION_AGENDA_KEY, AgendaEvent::class.java)
         else
             intent.getParcelableExtra(NOTIFICATION_AGENDA_KEY)
@@ -29,7 +27,7 @@ class ReminderNotificationService: BroadcastReceiver() {
         showNotification(context, agendaEvent)
     }
 
-    private fun showNotification(context: Context, agendaEvent: AgendaEvent?){
+    private fun showNotification(context: Context, agendaEvent: AgendaEvent?) {
 
         buildNotification(context)
 
@@ -45,7 +43,8 @@ class ReminderNotificationService: BroadcastReceiver() {
                 createDetailPendingIntent(context, agendaEvent)
             ).build()
 
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         notificationManager.notify(
             agendaEvent?.getDateInMillis()?.toInt() ?: 0,
@@ -69,17 +68,16 @@ class ReminderNotificationService: BroadcastReceiver() {
         }
     }
 
-    private fun createPendingActivityToAction(context: Context): PendingIntent {
-        val mainActivityIntent = Intent(context, AgendaActivity::class.java)
-        return PendingIntent.getActivity(
-            context,
-            ReminderNotification.REQUEST_CODE,
-            mainActivityIntent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
-    }
+    private fun createPendingActivityToAction(context: Context): PendingIntent =
+        NavDeepLinkBuilder(context)
+            .setGraph(R.navigation.nav_graph)
+            .setDestination(R.id.agendaFragment)
+            .createPendingIntent()
 
-    private fun createDetailPendingIntent(context: Context, agendaEvent: AgendaEvent?): PendingIntent {
+    private fun createDetailPendingIntent(
+        context: Context,
+        agendaEvent: AgendaEvent?
+    ): PendingIntent {
         val bundle = Bundle().apply {
             putParcelable(AGENDA_EVENT_KEY, agendaEvent)
         }

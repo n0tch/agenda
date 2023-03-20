@@ -5,7 +5,6 @@ import com.gustavo.agenda.data.exception.InvalidEventDateException
 import com.gustavo.agenda.data.repository.EventRepository
 import com.gustavo.agenda.data.transformation.AgendaEventMapper
 import com.gustavo.agenda.domain.model.AgendaEvent
-import com.gustavo.agenda.domain.model.EventDate
 import com.gustavo.agenda.mocks.AgendaEventMock
 import com.gustavo.agenda.mocks.EventDateMock
 import com.gustavo.agenda.mocks.EventDetailMock
@@ -13,7 +12,6 @@ import com.gustavo.agenda.mocks.EventTimeMock
 import io.mockk.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested

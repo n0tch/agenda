@@ -1,7 +1,7 @@
 package com.gustavo.agenda.ui.eventConfig.presentation
 
 import androidx.lifecycle.Observer
-import com.gustavo.agenda.LiveDataTest
+import com.gustavo.agenda.livedataconfig.LiveDataTest
 import com.gustavo.agenda.common.mapper.Result
 import com.gustavo.agenda.data.exception.InvalidEventDateException
 import com.gustavo.agenda.domain.usecase.event.EventUseCase

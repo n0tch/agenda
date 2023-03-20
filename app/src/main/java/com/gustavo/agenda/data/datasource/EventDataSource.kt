@@ -1,9 +1,8 @@
 package com.gustavo.agenda.data.datasource
 
-import com.gustavo.agenda.domain.model.AgendaEvent
-import com.gustavo.agenda.common.repository.AgendaPreferences
-import com.gustavo.agenda.domain.model.EventDate
 import com.gustavo.agenda.data.repository.EventRepository
+import com.gustavo.agenda.domain.model.AgendaEvent
+import com.gustavo.agenda.domain.model.EventDate
 
 class EventDataSource(
     private val agendaPreferences: AgendaPreferences

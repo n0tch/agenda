@@ -1,10 +1,10 @@
-package com.gustavo.agenda.common.repository
+package com.gustavo.agenda.data.datasource
 
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.gustavo.agenda.domain.model.AgendaEvent
 import com.gustavo.agenda.data.transformation.getDateInMillis
+import com.gustavo.agenda.domain.model.AgendaEvent
 import com.gustavo.agenda.domain.model.EventDate
 
 class AgendaPreferences(
@@ -36,7 +36,7 @@ class AgendaPreferences(
     }
 
     fun getPreferenceKey(eventDate: EventDate): String {
-        return AGENDA_EVENT_KEY + listOf(
+        return AGENDA_EVENT_SHARED_KEY + listOf(
             eventDate.year,
             eventDate.month,
             eventDate.day
@@ -44,7 +44,7 @@ class AgendaPreferences(
     }
 
     companion object {
-        private const val PREFERENCE_FILE_NAME = "agenda_pref_file"
-        private const val AGENDA_EVENT_KEY = "AGENDA_EVENT_KEY"
+        const val PREFERENCE_FILE_NAME = "agenda_pref_file"
+        const val AGENDA_EVENT_SHARED_KEY = "AGENDA_EVENT_KEY"
     }
 }
